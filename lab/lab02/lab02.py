@@ -1,4 +1,9 @@
 
+from itertools import count
+from more_itertools import first
+from sympy import re
+
+
 def lambda_curry2(func):
     """
     Returns a Curried version of a two-argument function FUNC.
@@ -15,8 +20,11 @@ def lambda_curry2(func):
     3
     """
     "*** YOUR CODE HERE ***"
-    return ______
-
+    def first(num1):
+        def second(num2):
+            return func(num1, num2)
+        return second
+    return first
 
 
 def count_cond(condition):
@@ -47,7 +55,15 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
-
+    def func(max):
+        count = 1
+        num = 0
+        while count <= max:
+            if condition(max,count):
+                num += 1
+            count+=1
+        return num
+    return func
 
 
 def compose1(f, g):
@@ -67,6 +83,7 @@ def compose1(f, g):
     """
     return lambda x: f(g(x))
 
+
 def composite_identity(f, g):
     """
     Return a function with one parameter x that returns True if f(g(x)) is
@@ -82,7 +99,6 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
-
 
 
 def cycle(f1, f2, f3):
@@ -112,4 +128,3 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
-
