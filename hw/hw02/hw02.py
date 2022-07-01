@@ -1,8 +1,9 @@
-HW_SOURCE_FILE=__file__
+from operator import sub, mul
+HW_SOURCE_FILE = __file__
 
 
 def num_eights(x):
-    """Returns the number of times 8 appears as a digit of x.
+    """Returns the number of times 8 appears as a digit of x.   
 
     >>> num_eights(3)
     0
@@ -23,7 +24,16 @@ def num_eights(x):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if x < 10:
+        if x == 8:
+            return 1
+        if x != 8:
+            return 0
+    if x % 10 == 8:
+        return num_eights(x//10)+1
+    else:
+        return num_eights(x//10)+0
+# num_eights(88)
 
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
@@ -58,7 +68,17 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    def helper(index, ppn, dir):
+        if n == 1:
+            return 1
+        elif index != n:
+            if num_eights(index) > 0 or index % 8 == 0:
+                return helper(index+1, ppn-dir, -dir)
+            else:
+                return helper(index+1, ppn+dir, dir)
+        else:
+            return ppn
+    return helper(1, 1, 1)
 
 def missing_digits(n):
     """Given a number a that is in sorted, increasing order,
@@ -88,7 +108,12 @@ def missing_digits(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if n < 10:
+        return 0
+    elif n % 10 - n // 10 % 10  <= 0:
+        return missing_digits(n // 10)
+    else:
+        return n % 10 - n // 10 % 10 + missing_digits(n//10) - 1
 
 def next_largest_coin(coin):
     """Return the next coin. 
@@ -126,8 +151,6 @@ def count_coins(total):
     "*** YOUR CODE HERE ***"
 
 
-from operator import sub, mul
-
 def make_anonymous_factorial():
     """Return the value of an expression that computes factorial.
 
@@ -139,4 +162,3 @@ def make_anonymous_factorial():
     True
     """
     return 'YOUR_EXPRESSION_HERE'
-
