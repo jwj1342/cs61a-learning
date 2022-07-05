@@ -1,3 +1,6 @@
+from sys import exc_info
+
+
 LAB_SOURCE_FILE = __file__
 
 
@@ -19,8 +22,10 @@ def skip_add(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
-
+    if n<=0:
+        return 0
+    else:
+        return skip_add(n-2)+n
 def summation(n, term):
 
     """Return the sum of the first n terms in the sequence defined by term.
@@ -41,7 +46,10 @@ def summation(n, term):
     """
     assert n >= 1
     "*** YOUR CODE HERE ***"
-
+    if n==1:
+        return term(1)
+    else:
+        return term(n)+summation(n-1,term)
 
 def paths(m, n):
     """Return the number of paths from one corner of an
@@ -57,6 +65,14 @@ def paths(m, n):
     1
     """
     "*** YOUR CODE HERE ***"
+    if m==1 or n==1:
+        if m==1 and n==1:
+            return 1
+        if m==1 and n!= 1:
+            return paths(m,n-1)
+        if m!=1 and n== 1:
+            return paths(m-1,n)
+    return paths(m-1,n)+paths(m,n-1)
 
 
 
@@ -105,7 +121,14 @@ def max_subseq(n, t):
     5
     """
     "*** YOUR CODE HERE ***"
-
+    if n == 0 or t == 0:
+        return 0
+    with_ones = max_subseq(n//10, t-1) * 10 + n%10
+    not_with = max_subseq(n//10, t)
+    if with_ones > not_with:
+        return with_ones
+    else:
+        return not_with
 
 def add_chars(w1, w2):
     """
