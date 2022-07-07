@@ -1,5 +1,6 @@
 """Typing test implementation"""
 
+from ast import For
 from utils import lower, split, remove_punctuation, lines_from_file
 from ucb import main, interact, trace
 from datetime import datetime
@@ -17,6 +18,11 @@ def choose(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    found = [x for x in paragraphs if select(x)]
+    if len(found) > k:
+        return found[k]
+    else:
+        return ''
     # END PROBLEM 1
 
 
@@ -33,8 +39,15 @@ def about(topic):
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    def select(x) :
+        separate_words = split(lower(remove_punctuation(x)))
+        for goals in topic:
+            for check in separate_words:
+                if goals == check:
+                    return True
+        return False
+    return select
     # END PROBLEM 2
-
 
 def accuracy(typed, reference):
     """Return the accuracy (percentage of words typed correctly) of TYPED
