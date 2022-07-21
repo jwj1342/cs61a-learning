@@ -1,6 +1,7 @@
 """Typing test implementation"""
 
 from ast import For
+from weakref import ref
 from utils import lower, split, remove_punctuation, lines_from_file
 from ucb import main, interact, trace
 from datetime import datetime
@@ -70,6 +71,14 @@ def accuracy(typed, reference):
     reference_words = split(reference)
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    len_ref_word=len(typed_words)
+    count = 0
+    right = 0
+    while count<=len_ref_word:
+        if typed_words[count]==reference_words[count]:
+            right+=1
+        count+=1
+    return right
     # END PROBLEM 3
 
 
